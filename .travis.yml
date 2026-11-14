@@ -1,3 +1,2 @@
-language: node_js
-node_js:
-  - "8.11.2"
+# See https://github.com/askmike/gekko/.github/workflows/ci.yml for CI configuration
+# This file is kept for historical reference; GitHub Actions now handles all CI checks.
