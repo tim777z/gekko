@@ -1,0 +1,15 @@
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "tim777z"
+    labels:
+      - "dependencies"
+    does-not-Allow-maintainer-modifications: true
+    commit-message:
+      prefix: "chore(deps)"
+      suffix: "updated"
