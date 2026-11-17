@@ -149,17 +149,17 @@ config.mailer = {
 }
 
 config.pushbullet = {
-    // sends pushbullets if true
+  // sends pushbullets if true
   enabled: false,
-    // Send 'Gekko starting' message if true
+  // Send 'Gekko starting' message if true
   sendMessageOnStart: true,
-    // disable advice printout if it's soft
+  // disable advice printout if it's soft
   muteSoft: true,
-    // your pushbullet API key
-  key: 'xxx',
-    // your email, change it unless you are Azor Ahai
-  email: 'jon_snow@westeros.org',
-    // will make Gekko messages start mit [GEKKO]
+  // your pushbullet API key - see .env.example for secrets management
+  key: '',
+  // your email, change it unless you are Azor Ahai
+  email: '',
+  // will make Gekko messages start mit [GEKKO]
   tag: '[GEKKO]'
 };
 
@@ -184,7 +184,7 @@ config.telegrambot = {
   enabled: false,
   // Receive notifications for trades and warnings/errors related to trading
   emitTrades: false,
-  token: 'YOUR_TELEGRAM_BOT_TOKEN',
+  token: '',
 };
 
 config.twitter = {
@@ -208,8 +208,8 @@ config.twitter = {
 config.xmppbot = {
   enabled: false,
   emitUpdates: false,
-  client_id: 'jabber_id',
-  client_pwd: 'jabber_pw',
+  client_id: '',
+  client_pwd: '',
   client_host: 'jabber_server',
   client_port: 5222,
   status_msg: 'I\'m online',

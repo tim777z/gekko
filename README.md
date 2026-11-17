@@ -10,13 +10,62 @@ Gekko is a Bitcoin TA trading and backtesting platform that connects to popular 
 
 *Use Gekko at your own risk.*
 
-## Documentation
+## Architecture
 
-See [the documentation website](https://gekko.wizb.it/docs/introduction/about_gekko.html).
+Gekko consists of three main layers:
+
+1. **Core** (`core/`) - Trading logic, indicators (TA-LIB, Tulip), portfolio management, and candle handling. The core uses a callback-based architecture with event emission.
+
+2. **Exchange Wrappers** (`exchange/wrappers/`) - API adapters for each supported exchange (Bittrex, Binance, Kraken, etc.). Each wrapper implements the standard Gekko Trader interface: `getTicker`, `getPortfolio`, `buy`, `sell`, `checkOrder`, `cancelOrder`.
+
+3. **Web UI** (`web/`) - Koa-based web server providing a user interface for configuration, monitoring, and control. The web server connects to the trading core via the emitter module.
+
+### Layer Interaction
+
+```
+web/ (Koa server)
+   └── emits/events → core/ (trading logic)
+   └── reads/writes → exchange/wrappers/ (API clients)
+```
+
+The `plugins/` directory contains strategy implementations that consume trading advice from the core layer.
 
 ## Installation & Usage
 
-See [the installing Gekko doc](https://gekko.wizb.it/docs/installation/installing_gekko.html).
+### From a fresh clone
+
+```bash
+# 1. Install dependencies (reproducible install)
+npm ci
+
+# 2. Configure environment
+# Copy .env.example and adjust as needed
+cp .env.example .env
+
+# 3. Start Gekko (development mode with UI)
+npm start
+
+# 4. Run the test suite
+npm test
+```
+
+### Available Scripts
+
+| Script | Description |
+|--------|-------------|
+| `npm test` | Run Jest test suite with coverage |
+| `npm start` | Start Gekko with UI interface |
+| `npm run lint` | Run ESLint validation |
+
+### Docker
+
+See `docker-compose.yml` for containerized deployment.
+
+## Documentation
+
+- [Command-line reference](https://gekko.wizb.it/docs/commandline/plugins.html)
+- [Supported exchanges](https://gekko.wizb.it/docs/introduction/supported_exchanges.html)
+- [Plugin development](https://gekko.wizb.it/docs/commandline/plugins.html)
 
 ## Community & Support
 

@@ -199,8 +199,11 @@ Trader.prototype.checkOrder = function(order, callback) {
       return callback(err);
     }
 
-    console.log('checkOrder', result);
-    throw 'a';
+    if(!result || !result.uuid) {
+      return callback(new Error('Bad response: missing order UUID'));
+    }
+
+    callback(undefined, result);
   }
 
   const fetch = next => this.bittrexApi.getopenorders({market: this.pair}, this.processResponse(next));
@@ -243,16 +246,13 @@ Trader.prototype.getOrder = function(order, callback) {
 
 Trader.prototype.cancelOrder = function(order, callback) {
   const handle = (err, result) => {
-    console.log('cancelOrder', err, result);
     if(err) {
       return callback(err);
     }
 
-    throw 'a';
-
-    // if(!result.success && result.message === 'ORDER_NOT_OPEN') {
-    //   log.debug('getOrder', 'ORDER_NOT_OPEN: assuming already closed or executed');
-    // }
+    if(!result || !result.uuid) {
+      return callback(new Error('Bad response: missing order UUID'));
+    }
 
     callback(undefined, true);
   }
